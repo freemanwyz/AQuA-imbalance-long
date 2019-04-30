@@ -39,12 +39,13 @@ catch
     msgbox('Error setting parameters')
 end
 
-[dat,dF,arLst,lmLoc,opts] = burst.actTop(datOrg,opts,evtSpatialMask,ff);
+[dat,dF,arLst,lmLoc,opts,dL] = burst.actTop(datOrg,opts,evtSpatialMask,ff);
 % [arLst,lmLoc] = burst.actTop(dat,dF,opts,evtSpatialMask,ff);
 waitbar(1,ff);
 
 setappdata(f,'dat',dat);
 setappdata(f,'dF',dF);
+setappdata(f,'dL',dL);
 setappdata(f,'arLst',arLst);
 setappdata(f,'lmLoc',lmLoc);
 setappdata(f,'opts',opts);

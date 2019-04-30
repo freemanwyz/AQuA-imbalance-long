@@ -1,4 +1,4 @@
-function [svLst,dReconSp,riseX] = spTop(dat,dF,lmLoc,evtSpatialMask,opts,ff)
+function [svLst,dReconSp,riseX,lblMap] = spTop(dat,dF,lmLoc,evtSpatialMask,opts,ff)
     
     [H,W,T] = size(dat);
     dReconSp = [];
@@ -50,7 +50,7 @@ function [svLst,dReconSp,riseX] = spTop(dat,dF,lmLoc,evtSpatialMask,opts,ff)
     
     % Extend and re-fit each patch, estimate delay, reconstruct signal
     fprintf('Extending super voxels ...\n')
-    [lblMap,riseX] = burst.getSpDelay(dat,lblMap,opts);
+    [lblMap,riseX] = burst.getSpDelay(dat,lblMap,evtSpatialMask,opts);
     
     if exist('ff','var')
         waitbar(1,ff);
@@ -61,5 +61,11 @@ function [svLst,dReconSp,riseX] = spTop(dat,dF,lmLoc,evtSpatialMask,opts,ff)
     
     svLst = label2idx(lblMap);
     
+    if 0
+        svLst = label2idx(lblMap);
+        zzshow(regionMapWithData(svLst,dat*0.5))
+    end    
 end
+
+
 

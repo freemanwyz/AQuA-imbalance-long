@@ -1,4 +1,4 @@
-function [lblMapEx,riseX] = getSpDelay(dat,lblMap,opts)
+function [lblMapEx,riseX] = getSpDelay(dat,lblMap,dL,opts)
 % getSpDelay get the delay of each super pixel
 
 [H,W,T] = size(dat);
@@ -17,7 +17,8 @@ dfSmo = datSmo - datSmoBase;
 if isfield(opts,'extendSV') && opts.extendSV==0
     lblMapEx = lblMap;
 else
-    lblMapEx = burst.extendVoxGrp(lblMap,dfSmo,ones(size(lblMap),'uint8'),opts.varEst);
+    lblMapEx = burst.extendVoxGrp(lblMap,dfSmo,dL,opts.varEst);
+    %lblMapEx = burst.extendVoxGrp(lblMap,dfSmo,ones(size(lblMap),'uint8'),opts.varEst);
 end
 
 % rising time

@@ -38,10 +38,14 @@ for nn=1:nRg
     t0d = find(msk1VecSum(1:t0)==0,1,'last');
     if ~isempty(t0d)
         t0 = t0d;
+    else
+        t0 = 1;
     end
     t1d = find(msk1VecSum(t1:end)==0,1);
     if ~isempty(t1d)
         t1 = t1d+t1-1;
+    else
+        t1 = T;
     end
     rgTx = max(t0-gapt,1):min(t1+gapt,T);
     T1 = numel(rgTx);
@@ -75,20 +79,32 @@ for nn=1:nRg
         if isempty(t0q)
             t0q = 1;
         end
-        dt1q = find(lblOnePix(min(t1+1,T1):end)==0,1);
+        dt1q = find(msk1OnePix(min(t1+1,T1):end)==0,1);
         if ~isempty(dt1q)
             t1q = min(dt1q + t1,T1);
         else
             t1q = T1;
         end
-        t0p = max(t0p,t0q-gapt);
-        t1p = min(t1p,t1q+gapt);
+        t0r = max(t0p,t0q-gapt);
+        t1r = min(t1p,t1q+gapt);
         
         % lowest point between temporal adjacent events
-        [x0,dt0a] = min(dat1SmoOnePix(t0p:t0));
-        [x1,dt1a] = min(dat1SmoOnePix(t1:t1p));
-        t0a = dt0a + t0p - 1;
-        t1a = dt1a + t1 - 1;
+        x0 = min(dat1SmoOnePix(t0r:t0));
+        if ~isempty(t0p)
+            [~,dt0a] = min(dat1SmoOnePix(t0r:t0));
+            t0a = dt0a + t0r - 1;
+        else
+            t0a = t0r;
+        end
+        x1 = min(dat1SmoOnePix(t1:t1r));
+        if ~isempty(t1p)
+            [~,dt1a] = min(dat1SmoOnePix(t1:t1r));
+            t1a = dt1a + t1 - 1;
+        else
+            t1a = t1r;
+        end        
+        x0 = min(x0,x1);
+        x1 = min(x0,x1);
         
         % stop if signal low enough
         t0b = t0a;

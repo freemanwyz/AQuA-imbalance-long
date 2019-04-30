@@ -41,9 +41,9 @@ x1 = x; x1(1:max(t0-1,1)) = nan; x1(min(t1+1,T):T) = nan;
 [peak0,tPeak] = nanmax(x1);
 
 % balance the base level on left and right
-basex = max(base0,base1);
-base0 = basex;
-base1 = basex;
+% basex = max(base0,base1);
+% base0 = basex;
+base1 = base0;
 
 % 10% and 50% time points
 t0z = t0;

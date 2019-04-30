@@ -92,7 +92,9 @@ if sum(validMap(:))>0
         if xp==0
             continue;
         end
-        sz0(ii) = min((xp-x0)/s0,(xp-x1)/s0);      
+        sz0(ii) = (xp-x0)/s0;  % only rising edge
+        %sz0(ii) = ((xp-x0)/s0+(xp-x1)/s0)/2;
+        %sz0(ii) = min((xp-x0)/s0,(xp-x1)/s0);   
     end
     
     %         % current significance

@@ -32,7 +32,8 @@ for nn=1:numel(spLst)
     t1 = tPeak+t1p-1;
     
     s00 = s0/sqrt(numel(ihw));
-    zVec(nn) = min(nanmean(x(:,tPeak)-x(:,t0))/s00,nanmean(x(:,tPeak)-x(:,t1))/s00);
+    % zVec(nn) = min(nanmean(x(:,tPeak)-x(:,t0))/s00,nanmean(x(:,tPeak)-x(:,t1))/s00);
+    zVec(nn) = nanmean(x(:,tPeak)-x(:,t0))/s00 + nanmean(x(:,tPeak)-x(:,t1))/s00;
 end
 
 end

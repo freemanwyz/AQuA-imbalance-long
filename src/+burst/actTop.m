@@ -61,7 +61,11 @@ function [dat,dF,arLst,lmLoc,opts,dActVox] = actTop(datOrg,opts,evtSpatialMask,f
     end
     
     % seeds
-    fsz = [1 1 0.5];  % smoothing for seed detection
+    if ~isfield(opts,'smoXY_seed')
+        fsz = [1 1 0.5];  % smoothing for seed detection
+    else
+        fsz = [opts.smoXY_seed,opts.smoXY_seed,opts.smoT_seed];
+    end
     lmLoc = burst.getLmAll(dat,arLst,dActVox,fsz);
     if exist('ff','var')
         waitbar(1,ff);

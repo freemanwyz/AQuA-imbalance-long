@@ -7,6 +7,7 @@ fh = guidata(f);
 ff = waitbar(0,'Detecting ...');
 
 dF = getappdata(f,'dF');
+dL = getappdata(f,'dL');
 dat = getappdata(f,'dat');
 opts = getappdata(f,'opts');
 lmLoc = getappdata(f,'lmLoc');
@@ -24,6 +25,7 @@ if bd.isKey('cell')
         evtSpatialMask(spaMsk0>0) = 1;
     end
 end
+evtSpatialMask = dL.*evtSpatialMask;
 
 try
     opts.thrTWScl = str2double(fh.thrTWScl.String);

@@ -62,19 +62,24 @@ mAvg = nanmean(dFVec(validMap>0,:));
 snrInit = ceil(max(mAvg)/(s00/sqrt(spSz)));
 snrThr = snrInit;
 tb = nan(10,2);
+nNow = 1e8;
 for ii=1:5
 % for ii=1:numel(snrVec)
     %snrThr = snrVec(ii);
-    gaphw = (11-ii)*5+5;
+    gaphw = 20;
+    %gaphw = (11-ii)*5+5;
     [spLst,spSeedVec,spSz,~,spStd] = gtw.mov2spSNR(dF,dFInfo,tMapMT,validMap,snrThr,gaphw);
     fprintf('Max %d - Tgt %d - Now %d - Thr %f\n',nSpMax,nSpTgt,numel(spLst),snrThr)
     
     tb(ii,1) = snrThr;
     tb(ii,2) = numel(spLst);
     %if numel(spLst)<=nSpMax && numel(spLst)>=nSpTgt
-    if numel(spLst)<=nSpMax
+    if numel(spLst)<=nSpMax || numel(spLst)>=nNow
         break
-    end    
+    end
+    nNow = numel(spLst);
+    %snrThr = snrThr*1.5;
+    
     dif0 = tb(:,2)-nSpMax;  % too many
     dif0(dif0<0) = nan;
     [x0,ix0] = nanmin(dif0);

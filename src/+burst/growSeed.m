@@ -27,6 +27,7 @@ function [resCell,lblMap] = growSeed(dat,dF,resCell,lblMap,lmLoc,lm3Idx,opts,stg
     % prepare data
     % datc = cell(nLm,1);
     for uu=1:numel(lmLoc)
+        if mod(uu,1000)==0; fprintf('%d/%d\n',uu,numel(lmLoc)); end
         %if uu==85; keyboard; end
         iSeed = lmLoc(uu);
         if lm3Idx(iSeed)==0  % eaten by others

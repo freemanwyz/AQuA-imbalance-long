@@ -12,7 +12,7 @@ function [dat,opts] = prep1(p0,f0,rgT,opts,ff)
     % read data
     fprintf('Reading data\n');
     if strcmp(ext,'.mat')
-        file = load([p0,filesep,f0]);
+        file = load([p0,'/',f0]);
         headers = fieldnames(file);
         dat = file.(headers{1});
         maxImg = -1;
